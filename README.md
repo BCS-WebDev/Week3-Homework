@@ -89,3 +89,20 @@ above methods, methods 1 & 3 have criticals disadvantages in that they only perf
 when tasked with a certain number of character types, while method 2 is viable for any.
 While we will be using method 2, since method 3 is most efficient, we will be implementing
 method 3's insert function to guarantee inclusion of character types in method 2.
+
+* Method Final:
+    - Declare character type ASCII index arrays
+        - Append chosen arrays to create valid character pool
+            - If numeric character type is chosen, append array twice for even distribution
+        - Randomly choose character from appended array and append to password string
+            - Leave space for character insertion to guarantee inclusion of each chosen character type
+        - Insert one of each chosen character type into random indices of password string
+    - Pros:
+        - Retains maximum randomness
+        - No checking for character types needed (ensures inclusion chosen character types)
+        - Guarantees string has required characters
+        - Fastest of proposed methods (least number of steps)
+        - Works well for any number of chosen character types
+        - Even distribution of character types
+    - Cons:
+        - Minimal

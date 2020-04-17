@@ -9,94 +9,105 @@ var lowercase = [97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
                 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122];
 
 
-// Password Generator
-function generatePassword() {
-  ////// Set Password Length //////
-  var passwordLength = 0;        // initialize to 0 to set var type
-
+////// Password Length prompt //////
+function passwordLengthPrompt() {
   // loop while password length is Not a Number, < 8, or > 128
-  while (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {    
-    // prompt for password length
-    passwordLength = prompt("Choose a password length: (Minimum : 8) - (Maximum : 128)");       
+  while (isNaN(userLength) || userLength < 8 || userLength > 128) {    
+    var userLength = prompt("Choose a password length: (Minimum : 8) - (Maximum : 128)");       // prompt for password length
   }
 
+  return userLength;   // return Length
+}
 
-  ////// Choose Character Types //////
-  var characterTypesArray = [];       // declare empty array
-  var characterTypes = [];   // character type count for insertCharacterTypes - to guarantee at least one of each included type
-  var characterType = "";      // declare empty string
 
-  // loop while characterType == done, characterTypesArray is empty, or characterTypesArray has length of 4 (includes all types)
-  while (characterTypesArray.length == 0 || (!characterType.includes("done") && characterTypes.length != 4)) {   
+////// Choose Character Types prompt //////
+function characterTypesPrompt(characterPoolArray, characterTypesArray) {
+  // loop while userCharacters != done & characterPoolArray has length of 4 (includes all types), or characterPoolArray is empty
+  while (characterPoolArray.length == 0 || (!userCharacters.includes("done") && characterTypesArray.length != 4)) {   
     // prompt for character types
-    characterType = prompt("Choose character types: special, numeric, uppercase, lowercase. (Type 'done' to finish)");
-    characterType = characterType.toLowerCase();
+    var userCharacters = prompt("Choose character types: special, numeric, uppercase, lowercase. (Type 'done' to finish)");
+    userCharacters = userCharacters.toLowerCase();    // change string to lower case
     
-    // if characterTypesArray does not include first special element && characterType includes 'special'
-    if (!characterTypesArray.includes(33) && characterType.includes("special")) {
-      // concatenate special array to characterTypesArray
-      characterTypesArray = characterTypesArray.concat(special);
-      // push special array to characterTypes 
-      characterTypes.push(special);
+    // if characterPoolArray does not include first special element && characterType includes 'special'
+    if (!characterPoolArray.includes(33) && userCharacters.includes("special")) {
+      characterPoolArray.push.apply(characterPoolArray, special);  // concatenate special array to characterPoolArray
+      characterTypesArray.push(special);   // push special array to characterTypesArray 
     }
 
-    // if characterTypesArray does not include first numeric element && characterType includes 'numeric'
-    if (!characterTypesArray.includes(48) && characterType.includes("numeric")) {
-      // concatenate numeric array to characterTypesArray
-      characterTypesArray = characterTypesArray.concat(numeric);
-      characterTypesArray = characterTypesArray.concat(numeric);      // concatenate twice for even distribution
-      // push numeric array to characterTypes 
-      characterTypes.push(numeric);
+    // if characterPoolArray does not include first numeric element && characterType includes 'numeric'
+    if (!characterPoolArray.includes(48) && userCharacters.includes("numeric")) {
+      characterPoolArray.push.apply(characterPoolArray, numeric);      // concatenate numeric array to characterPoolArray
+      characterPoolArray.push.apply(characterPoolArray, numeric);      // concatenate twice for even distribution
+      characterTypesArray.push(numeric);  // push numeric array to characterTypesArray 
     }
 
-    // if characterTypesArray does not include first uppercase element && characterType includes 'uppercase'
-    if (!characterTypesArray.includes(65) && characterType.includes("uppercase")) {
-      // concatenate uppercase array to characterTypesArray
-      characterTypesArray = characterTypesArray.concat(uppercase);
-      // push uppercase array to characterTypes 
-      characterTypes.push(uppercase);
+    // if characterPoolArray does not include first uppercase element && characterType includes 'uppercase'
+    if (!characterPoolArray.includes(65) && userCharacters.includes("uppercase")) {
+      characterPoolArray.push.apply(characterPoolArray, uppercase);   // concatenate uppercase array to characterPoolArray
+      characterTypesArray.push(uppercase);   // push uppercase array to characterTypesArray 
     }
 
-    // if characterTypesArray does not include first lowercase element && characterType includes 'lowercase'
-    if (!characterTypesArray.includes(97) && characterType.includes("lowercase")) {
-      // concatenate lowercase array to characterTypesArray
-      characterTypesArray = characterTypesArray.concat(lowercase);
-      // push lowercase array to characterTypes 
-      characterTypes.push(lowercase);
+    // if characterPoolArray does not include first lowercase element && characterType includes 'lowercase'
+    if (!characterPoolArray.includes(97) && userCharacters.includes("lowercase")) {
+      characterPoolArray.push.apply(characterPoolArray, lowercase);   // concatenate lowercase array to characterPoolArray
+      characterTypesArray.push(lowercase);   // push lowercase array to characterTypesArray 
     } 
   }
+}
 
 
-  ////// Generate Temp Password //////
-  var passwordTemp = "";   // declare empty password string to return
-  var passwordLengthTemp = passwordLength - characterTypes.length;  // make space to guarantee inclusion of chosen character types
+////// Temporary Password Generator //////
+function tempPasswordGenerator(passwordLength, characterPoolArray, characterTypesArrayLength) {
+  var passwordTemp = "";
+  var passwordLengthTemp = passwordLength - characterTypesArrayLength;  // make space to guarantee inclusion of chosen character types
+                                                                   
   for (var i = 0; i < passwordLengthTemp; i++) {
-    // random index from 0 to CharacterTypesArray - 1 (inclusive)
-    var randomIndex = Math.floor(Math.random() * characterTypesArray.length);  
-
-    // get character from char code at random index of character types array
-    var randomCharacter = String.fromCharCode(characterTypesArray[randomIndex]);
-
-    // concatenate random character to passwordTemp
-    passwordTemp = passwordTemp + randomCharacter;
+    var randomIndex = Math.floor(Math.random() * characterPoolArray.length); // random index from 0 to CharacterTypesArray - 1 (inclusive)
+    var randomCharacter = String.fromCharCode(characterPoolArray[randomIndex]); // get character from char code at random index of character types array
+    passwordTemp = passwordTemp + randomCharacter;  // concatenate random character to passwordTemp
   }
 
+  return passwordTemp;    // return passwordTemp
+}
 
+
+////// Character Type Insertion //////
+function characterTypeInsertion(tempUserPassword, characterTypesArray) {
   ////// Fill Temp Password - Insert chosen character types to guarantee inclusion //////
-  for (var i = 0; i < characterTypes.length; i++) {
-    // random index from 0 to CharacterTypes[i].length - 1 (inclusive)
-    var randomIndex = Math.floor(Math.random() * characterTypes[i].length);
+  for (var i = 0; i < characterTypesArray.length; i++) {
+    // random index from 0 to CharacterTypesArray[i].length - 1 (inclusive)
+    var randomIndex = Math.floor(Math.random() * characterTypesArray[i].length);
 
     // get character from char code at random index of character types random index
-    var insertCharacter = String.fromCharCode(characterTypes[i][randomIndex]);
+    var insertCharacter = String.fromCharCode(characterTypesArray[i][randomIndex]);
 
-    // insert insertCharacter at random index in passwordTemp
-    var passwordRandomIndex = Math.floor(Math.random() * passwordTemp.length);  
-    passwordTemp = passwordTemp.substring(0, passwordRandomIndex) + insertCharacter + passwordTemp.substring(passwordRandomIndex);
+    // insert insertCharacter at random index in tempUserPassword
+    var passwordRandomIndex = Math.floor(Math.random() * tempUserPassword.length);  
+    tempUserPassword = tempUserPassword.substring(0, passwordRandomIndex) + insertCharacter + tempUserPassword.substring(passwordRandomIndex);
   }
 
+  return tempUserPassword;  // return tempUserPassword
+}
+
+
+////// Password Generator //////
+function generatePassword() {
+  // Set Password Length
+  var passwordLength = passwordLengthPrompt();        // call passwordLenghtPrompt - passwordLength is string type
+
+  // Choose Character Types
+  var characterPool = [];       // declare empty array for character pool
+  var characterTypes = [];   // character types array - to be used to guarantee at least one of each included type via insertion
+  characterTypesPrompt(characterPool, characterTypes);    // call characterTypesPrompt and pass arrays to fill
+
+  // Generate Temp Password
+  var userPassword = tempPasswordGenerator(passwordLength, characterPool, characterTypes.length);   // call tempPasswordGenerator
+
+  // Fill Temp Password - Insert chosen character types to guarantee inclusion
+  userPassword = characterTypeInsertion(userPassword, characterTypes);
+
   // return generated password
-  return passwordTemp;
+  return userPassword;
 }
 
 // Write password to the #password input
