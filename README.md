@@ -1,7 +1,7 @@
-# Week3-Homework
+# Password Generator
 BootCampSpot Web Development - Week 3 Homework
 
-# Notes on Passwords
+## Notes on Passwords
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Passwords are typically used to restrict
 access to something that needs to be safeguarded. Usually a string of characters, 
 a password is generally set by the 'claimaint' and verified by the 'verifier'. The
@@ -24,7 +24,7 @@ the original claimant via email or mobile device to confirm that they tried to
 access their data, and Cognitive passwords use question and answer pairs, making it
 more convenient to strengthen an authentication protocol on computers.
 
-# Motive & Action
+## Motive & Action
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Our client is an employee with access to 
 sensitive data and wants to provide greater security by using a random password
 generator to generate passwords that meet a certain criteria. JavaScript provides
