@@ -2,6 +2,7 @@
 BootCampSpot Web Development - Week 3 Homework
 
 ![Preview](PasswordGenerator-min.gif)
+<img src="PasswordGenerator-min.gif">
 
 ## Notes on Passwords
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Passwords are typically used to restrict
