@@ -1,6 +1,8 @@
 # Password Generator
 BootCampSpot Web Development - Week 3 Homework
 
+![Preview](PasswordGenerator-min.gif)
+
 ## Notes on Passwords
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Passwords are typically used to restrict
 access to something that needs to be safeguarded. Usually a string of characters, 
