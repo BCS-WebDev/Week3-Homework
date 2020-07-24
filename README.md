@@ -1,8 +1,8 @@
 # Password Generator
 BootCampSpot Web Development - Week 3 Homework
 
-![Preview](PasswordGenerator-min.gif)
-<img src="./assets/PasswordGenerator-min.gif">
+![Preview](https://github.com/BCS-WebDev/Week3-Homework/blob/master/Assets/PasswordGenerator-min.gif)
+<img src="https://github.com/BCS-WebDev/Week3-Homework/blob/master/Assets/PasswordGenerator-min.gif">
 
 ## Notes on Passwords
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Passwords are typically used to restrict
